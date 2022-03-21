@@ -1,0 +1,98 @@
+#!/usr/bin/env sh
+
+# the scripting-addition must be loaded manually if
+# you are running yabai on macOS Big Sur. Uncomment
+# the following line to have the injection performed
+# when the config is executed during startup.
+#
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+#
+# see this wiki page for information:
+#  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+#
+
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+# external bar
+# SPACEBAR_HEIGHT=$(spacebar -m config height)
+# yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+
+
+# global settings
+yabai -m config mouse_follows_focus          on
+yabai -m config focus_follows_mouse          autoraise
+yabai -m config window_placement             second_child
+yabai -m config window_topmost               on
+yabai -m config window_shadow                float
+yabai -m config window_opacity               on
+yabai -m config window_opacity_duration      0.0
+yabai -m config active_window_opacity        1.0
+yabai -m config normal_window_opacity        0.95
+yabai -m config window_border                off
+yabai -m config window_border_width          6
+yabai -m config active_window_border_color   0xff775759
+yabai -m config normal_window_border_color   0xff555555
+yabai -m config insert_feedback_color        0xffd75f5f
+yabai -m config split_ratio                  0.50
+yabai -m config auto_balance                 off
+yabai -m config mouse_modifier               fn
+yabai -m config mouse_action1                move
+yabai -m config mouse_action2                resize
+yabai -m config mouse_drop_action            swap
+
+# general space settings
+yabai -m config layout                       bsp
+yabai -m config top_padding                  05
+yabai -m config bottom_padding               05
+yabai -m config left_padding                 05
+yabai -m config right_padding                05
+yabai -m config window_gap                   05
+
+# disable tiling for apps
+
+# ru
+
+safari_title="(Основные|Вкладки|Автозаполнение|Пароли|Поиск|Безопасность|Веб-сайты|Расширения|Дополнения)"
+yabai -m rule --add app="^Системные настройки$"                   manage=off
+yabai -m rule --add app="^Finder$" title="(Свойства|Настройки)"   manage=off
+yabai -m rule --add app="^Safari$" title="$safari_title"          manage=off
+yabai -m rule --add app="^Информация о системе$"                  manage=off
+yabai -m rule --add app="^Калькулятор$"                           manage=off
+yabai -m rule --add app="^Мониторинг системы$"                    manage=off
+yabai -m rule --add app="^Шрифты$"                                manage=off
+yabai -m rule --add label="App Store" app="^App Store$"           manage=off
+yabai -m rule --add app="^Утилита архивирования$"                 manage=off
+yabai -m rule --add app="^Keka$"                                  manage=off
+yabai -m rule --add app="^Vimari$"                                manage=off
+yabai -m rule --add app="^Installer$"                             manage=off
+yabai -m rule --add app="^VimR$" title="(Preferences)"            manage=off
+yabai -m rule --add app="^Цифровой колориметр$"                   manage=off
+yabai -m rule --add app="^Twitter$" title="(Медиа)"               manage=off
+yabai -m rule --add app="^Spark$"                                 manage=off
+
+# eng
+
+# safari_title="(General|Tabs|Autofill|Passwords|Search|Security|Privacy|Websites|Extensions|Advanced)"
+# yabai -m rule --add app="^Safari$" title=$safari_title            manage=off
+# yabai -m rule --add app="^System Preferences$"                    manage=off
+# yabai -m rule --add app="^System Information$"                    manage=off
+# yabai -m rule --add app="^Finder$" title="(Info|Preferences)"     manage=off
+# yabai -m rule --add app="^Calculator$"                            manage=off
+# yabai -m rule --add app="^Activity Monitor$"                      manage=off
+# yabai -m rule --add app="^Font Book$"                             manage=off
+# yabai -m rule --add app="^App Store$"                             manage=off
+# yabai -m rule --add app="^Archive Utility$"                       manage=off
+# yabai -m rule --add app="^Keka$"                                  manage=off
+# yabai -m rule --add app="^Vimari$"                                manage=off
+# yabai -m rule --add app="^Installer$"                             manage=off
+# yabai -m rule --add app="^VimR$" title="(Preferences)"              manage=off
+# yabai -m rule --add app="^Digital Colour Meter$"                    manage=off
+
+# move apps to spaces
+# yabai -m rule --add app="^VSCodium$" space=1
+# yabai -m rule --add app="^Safari$"   space=2
+yabai -m rule --add app="^Spotify$"  space=3
+
+echo "yabai configuration loaded.."
